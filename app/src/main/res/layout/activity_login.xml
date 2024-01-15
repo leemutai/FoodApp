@@ -136,7 +136,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
+        android:id="@+id/loginbutton"
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
@@ -151,7 +151,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/donthavebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -159,9 +159,9 @@
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintEnd_toEndOf="@+id/loginbutton"
+        app:layout_constraintStart_toStartOf="@+id/loginbutton"
+        app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
 
     <TextView
         android:id="@+id/textView12"
@@ -175,5 +175,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/donthavebutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
