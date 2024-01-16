@@ -13,18 +13,20 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
-        android:src="@tools:sample/avatars"
+        android:src="@drawable/bell"
         app:layout_constraintBottom_toBottomOf="@+id/textView19"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView19"
-        tools:srcCompat="@drawable/bell" />
+        app:layout_constraintTop_toTopOf="@+id/textView19"/>
+<!--        tools:srcCompat="@drawable/bell"-->
+<!--        android:src="@tools:sample/avatars"-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/menu" />
 
     <TextView
         android:id="@+id/textView19"
@@ -36,4 +38,20 @@
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/fragmentContainerView4"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:navGraph="@navigation/navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
