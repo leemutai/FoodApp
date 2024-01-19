@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wavesoffood.adaptar.NotificationAdapter
 import com.example.wavesoffood.databinding.FragmentHistoryBinding
 import com.example.wavesoffood.databinding.FragmentNotificationBottomBinding
@@ -29,6 +30,8 @@ class Notification_Bottom_Fragment : BottomSheetDialogFragment() {
             ArrayList(notifications),
             ArrayList(notificationImages)
         )
+binding.notificationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.notificationRecyclerView.adapter = adapter
 
         return binding.root
     }
