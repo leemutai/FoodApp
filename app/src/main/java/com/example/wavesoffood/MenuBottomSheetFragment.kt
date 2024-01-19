@@ -20,7 +20,11 @@ class MenuBottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
         binding = FragmentMenuBottomSheetBinding.inflate(inflater, container, false)
+        binding.buttonBack.setOnClickListener {
+            dismiss()
+        }
 
         val menuFoodName = listOf("Burger","sandwich", "momo","item","sandwich", "momo","sandwich", "momo","item","sandwich", "momo")
         val menuItemPrice = listOf("$5","$6","$8","$9","$10","$10","$6","$8","$9","$10","$10")
