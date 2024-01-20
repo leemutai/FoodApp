@@ -182,6 +182,7 @@ for previewing layouts and visual " />
         <TextView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/yeon_sung"
             android:layout_weight="1"
             android:paddingLeft="8dp"
             android:text="Total Amount" />
