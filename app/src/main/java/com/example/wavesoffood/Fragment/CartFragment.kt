@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.wavesoffood.CongratsBottomSheet
 import com.example.wavesoffood.PayOutActivity
 import com.example.wavesoffood.R
 import com.example.wavesoffood.adaptar.CartAdapter
@@ -25,10 +26,10 @@ class CartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentCartBinding.inflate(inflater,container,false)
+        binding = FragmentCartBinding.inflate(inflater, container, false)
 
-        val cartFoodName = listOf("Burger","sandwich", "momo","item","sandwich", "momo")
-        val cartItemPrice = listOf("$5","$6","$8","$9","$10","$10")
+        val cartFoodName = listOf("Burger", "sandwich", "momo", "item", "sandwich", "momo")
+        val cartItemPrice = listOf("$5", "$6", "$8", "$9", "$10", "$10")
         val cartImage = listOf(
             R.drawable.menu1,
             R.drawable.menu2,
@@ -37,14 +38,18 @@ class CartFragment : Fragment() {
             R.drawable.menu5,
             R.drawable.menu6,
         )
-        val adapter = CartAdapter(ArrayList(cartFoodName),ArrayList(cartItemPrice),ArrayList(cartImage))
+        val adapter =
+            CartAdapter(ArrayList(cartFoodName), ArrayList(cartItemPrice), ArrayList(cartImage))
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.cartRecyclerView.adapter = adapter
-binding.proceedButton.setOnClickListener{
-val intent = Intent(requireContext(),PayOutActivity::class.java)
-    startActivity(intent)
+        binding.proceedButton.setOnClickListener {
+            val intent = Intent(requireContext(), PayOutActivity::class.java)
+            startActivity(intent)
+        }
 
-}
+
+
+
         return binding.root
     }
 }

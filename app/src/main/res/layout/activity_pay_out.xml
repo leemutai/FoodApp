@@ -203,6 +203,7 @@ for previewing layouts and visual " />
     </LinearLayout>
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/placeMyOrder"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@drawable/edittext"

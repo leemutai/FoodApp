@@ -1,5 +1,6 @@
 package com.example.wavesoffood
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,15 +15,19 @@ class CongratsBottomSheet : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.goHome.setOnClickListener{
-            dismiss()
-        }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_congrats_bottom_sheet, container, false)
+        binding = FragmentCongratsBottomSheetBinding.inflate(layoutInflater,container,false)
+        binding.goHome.setOnClickListener{
+            val intent = Intent(requireContext(),MainActivity::class.java)
+            startActivity(intent)
+
+        }
+        return binding.root
     }
 }
 
