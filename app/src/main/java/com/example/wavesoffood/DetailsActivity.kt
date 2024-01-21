@@ -15,8 +15,30 @@ class DetailsActivity : AppCompatActivity() {
         val foodImage = intent.getIntExtra("MenuItemImage",0)
         binding.detailsFoodName.text = foodName
         binding.detailsImageView.setImageResource(foodImage)
+
+        binding.imageButton.setOnClickListener {
+            finish()
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
