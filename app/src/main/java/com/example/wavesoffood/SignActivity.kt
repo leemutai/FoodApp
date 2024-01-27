@@ -1,18 +1,24 @@
 package com.example.wavesoffood
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import com.example.wavesoffood.databinding.ActivitySignBinding
 import com.example.wavesoffood.model.UserModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.Firebase
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -39,7 +45,7 @@ class SignActivity : AppCompatActivity() {
         auth = Firebase.auth
         //initialize firebase database
         database = Firebase.database.reference
-        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions)
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
 
         binding.createAccountButton.setOnClickListener {
             username = binding.userName.text.toString().trim()
@@ -57,7 +63,37 @@ class SignActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+        binding.googleButton.setOnClickListener {
+            val signIntent = googleSignInClient.signInIntent
+            launcher.launch(signIntent)
+        }
     }
+
+    //launcher for google signin
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                if (task.isSuccessful) {
+                    val account: GoogleSignInAccount? = task.result
+                    val credential: AuthCredential =
+                        GoogleAuthProvider.getCredential(account?.idToken, null)
+                    auth.signInWithCredential(credential).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText( this,"Sign In succesful", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Sign In failed", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+            else{
+                Toast.makeText(this, "Sign In failed", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -79,7 +115,7 @@ class SignActivity : AppCompatActivity() {
         email = binding.emailAddress.text.toString().trim()
         password = binding.password.text.toString().trim()
 
-        val user = UserModel(username,email,password)
+        val user = UserModel(username, email, password)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         //save data to firebase database
         database.child("user").child(userId).setValue(user)
