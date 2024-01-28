@@ -4,17 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.RemoteViews.RemoteCollectionItems
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wavesoffood.DetailsActivity
 import com.example.wavesoffood.databinding.MenuItemBinding
 
 class MenuAdapter(
-    private val menuItems: MutableList<com.example.wavesoffood.model.MenuItem>,
+    private val menuItems: List<com.example.wavesoffood.model.MenuItem>,
     private val requireContext: Context,
 ) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
