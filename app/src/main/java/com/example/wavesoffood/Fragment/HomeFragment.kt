@@ -1,5 +1,6 @@
 package com.example.wavesoffood.Fragment
 
+import MenuBottomSheetFragment
 import android.os.Bundle
 import android.transition.Slide
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
-import com.example.wavesoffood.MenuBottomSheetFragment
+//import com.example.wavesoffood.MenuBottomSheetFragment
 import com.example.wavesoffood.R
 import com.example.wavesoffood.adaptar.PopularAdapter
 import com.example.wavesoffood.databinding.FragmentHomeBinding
