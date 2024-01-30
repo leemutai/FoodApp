@@ -54,6 +54,8 @@ class CartFragment : Fragment() {
 
 
         binding.proceedButton.setOnClickListener {
+            // get order items details before processsing to check out
+            getOrderItemsDetails()
             val intent = Intent(requireContext(), PayOutActivity::class.java)
             startActivity(intent)
         }
@@ -62,6 +64,74 @@ class CartFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun getOrderItemsDetails() {
+
+        val orderIdReference: DatabaseReference =
+            database.reference.child("user").child(userId).child("CartItems")
+        val foodName = mutableListOf<String>()
+        val foodPrice = mutableListOf<String>()
+        val foodImage = mutableListOf<String>()
+        val foodDescription = mutableListOf<String>()
+        val foodIngredient = mutableListOf<String>()
+        //get items quantities
+        val foodQuantities = cartAdapter.getUpdatedItemsQuantities()
+
+        orderIdReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                for (foodSnapshot: DataSnapshot in snapshot.children) {
+                    //get items respective list
+                    val orderItems = foodSnapshot.getValue(CartItems::class.java)
+                    //add items details in to the list
+                    orderItems?.foodName?.let { foodName.add(it) }
+                    orderItems?.foodPrice?.let { foodPrice.add(it) }
+                    orderItems?.foodDescription?.let { foodDescription.add(it) }
+                    orderItems?.foodImage?.let { foodImage.add(it) }
+                    orderItems?.foodIngredient?.let { foodIngredient.add(it) }
+                }
+                orderNow(
+                    foodName,
+                    foodPrice,
+                    foodDescription,
+                    foodImage,
+                    foodIngredient,
+                    foodQuantities
+                )
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    requireContext(),
+                    "Order making failed, Please Try again",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+
+
+    }
+
+    private fun orderNow(
+        foodName: MutableList<String>,
+        foodPrice: MutableList<String>,
+        foodDescription: MutableList<String>,
+        foodImage: MutableList<String>,
+        foodIngredient: MutableList<String>,
+        foodQuantities: MutableList<Int>,
+    ) {
+        if (isAdded && context != null) {
+            val intent = Intent(requireContext(), PayOutActivity::class.java)
+            intent.putExtra("foodItemName", foodName as ArrayList<String>)
+            intent.putExtra("foodItemPrice", foodPrice as ArrayList<String>)
+            intent.putExtra("foodItemImage", foodImage as ArrayList<String>)
+            intent.putExtra("foodItemDescription", foodDescription as ArrayList<String>)
+            intent.putExtra("foodItemIngredient", foodIngredient as ArrayList<String>)
+            intent.putExtra("foodItemQuantities", foodQuantities as ArrayList<Int>)
+            startActivity(intent)
+        }
     }
 
     private fun retrieveCartItems() {
@@ -108,12 +178,13 @@ class CartFragment : Fragment() {
                     quantity,
                     foodIngredients
                 )
-                binding.cartRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+                binding.cartRecyclerView.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 binding.cartRecyclerView.adapter = adapter
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText( context,"data not fetch", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "data not fetch", Toast.LENGTH_SHORT).show()
             }
 
         })
