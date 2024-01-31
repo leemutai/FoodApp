@@ -56,8 +56,7 @@ class CartFragment : Fragment() {
         binding.proceedButton.setOnClickListener {
             // get order items details before processsing to check out
             getOrderItemsDetails()
-            val intent = Intent(requireContext(), PayOutActivity::class.java)
-            startActivity(intent)
+
         }
 
 
@@ -169,7 +168,7 @@ class CartFragment : Fragment() {
             }
 
             private fun setAdapter() {
-                val adapter = CartAdapter(
+                cartAdapter = CartAdapter(
                     requireContext(),
                     foodNames,
                     foodPrices,
@@ -180,7 +179,7 @@ class CartFragment : Fragment() {
                 )
                 binding.cartRecyclerView.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                binding.cartRecyclerView.adapter = adapter
+                binding.cartRecyclerView.adapter = cartAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
