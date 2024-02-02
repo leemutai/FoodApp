@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/button9"
+            android:id="@+id/backButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
@@ -70,7 +70,6 @@
                 android:ems="10"
                 android:fontFamily="@font/yeon_sung"
                 android:inputType="text"
-                android:text="Name"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -108,10 +107,7 @@
                 android:ems="10"
                 android:fontFamily="@font/lato"
                 android:inputType="textMultiLine"
-                android:text="Lorem ipsum is placeholder text
-commonly used in the graphic,
-print, and publishing industries
-for previewing layouts and visual "
+                android:text=" "
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -146,7 +142,7 @@ for previewing layouts and visual "
                 android:ems="10"
                 android:fontFamily="@font/lato"
                 android:inputType="phone"
-                android:text="0734577625"
+                android:text=" "
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -205,6 +201,7 @@ for previewing layouts and visual "
                 android:textColor="@color/black" />
 
             <EditText
+                android:id="@+id/totalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -214,7 +211,7 @@ for previewing layouts and visual "
                 android:gravity="end"
                 android:inputType="none"
                 android:paddingEnd="32dp"
-                android:text="$5"
+                android:text=" "
                 android:textColor="@color/textColor"
                 android:textSize="20sp" />
         </LinearLayout>

@@ -1,28 +1,20 @@
 package com.example.wavesoffood.Fragment
 
+import PayOutActivity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.wavesoffood.CongratsBottomSheet
-import com.example.wavesoffood.PayOutActivity
-import com.example.wavesoffood.R
+//import com.example.wavesoffood.PayOutActivity
 import com.example.wavesoffood.adaptar.CartAdapter
 import com.example.wavesoffood.databinding.FragmentCartBinding
-import com.example.wavesoffood.databinding.FragmentHomeBinding
 import com.example.wavesoffood.model.CartItems
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
-
+import com.google.firebase.database.*
 
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
@@ -37,9 +29,9 @@ class CartFragment : Fragment() {
     private lateinit var cartAdapter: CartAdapter
     private lateinit var userId: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -48,25 +40,20 @@ class CartFragment : Fragment() {
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
-        auth = FirebaseAuth.getInstance()
+        // Initialize the database variable
+        database = FirebaseDatabase.getInstance()
+
         retrieveCartItems()
 
-
-
         binding.proceedButton.setOnClickListener {
-            // get order items details before processsing to check out
+            // get order items details before processing to check out
             getOrderItemsDetails()
-
         }
-
-
-
 
         return binding.root
     }
 
     private fun getOrderItemsDetails() {
-
         val orderIdReference: DatabaseReference =
             database.reference.child("user").child(userId).child("CartItems")
         val foodName = mutableListOf<String>()
@@ -74,16 +61,15 @@ class CartFragment : Fragment() {
         val foodImage = mutableListOf<String>()
         val foodDescription = mutableListOf<String>()
         val foodIngredient = mutableListOf<String>()
-        //get items quantities
+        // get items quantities
         val foodQuantities = cartAdapter.getUpdatedItemsQuantities()
 
         orderIdReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 for (foodSnapshot: DataSnapshot in snapshot.children) {
-                    //get items respective list
+                    // get items respective list
                     val orderItems = foodSnapshot.getValue(CartItems::class.java)
-                    //add items details in to the list
+                    // add items details to the list
                     orderItems?.foodName?.let { foodName.add(it) }
                     orderItems?.foodPrice?.let { foodPrice.add(it) }
                     orderItems?.foodDescription?.let { foodDescription.add(it) }
@@ -109,8 +95,6 @@ class CartFragment : Fragment() {
             }
 
         })
-
-
     }
 
     private fun orderNow(
@@ -134,12 +118,11 @@ class CartFragment : Fragment() {
     }
 
     private fun retrieveCartItems() {
-        // database reference to the firebase
-        database = FirebaseDatabase.getInstance()
+        // database reference to Firebase
         userId = auth.currentUser?.uid ?: ""
         val foodReference: DatabaseReference =
             database.reference.child("user").child(userId).child("CartItems")
-        //list to store cart items
+        // initialize lists to avoid null pointer exceptions
         foodNames = mutableListOf()
         foodPrices = mutableListOf()
         foodDescriptions = mutableListOf()
@@ -147,21 +130,19 @@ class CartFragment : Fragment() {
         foodIngredients = mutableListOf()
         quantity = mutableListOf()
 
-        //fetch data rom the databae
+        // fetch data from the database
         foodReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (foodSnapshot in snapshot.children) {
-                    //get the cart items object from the child node
+                    // get the cart items object from the child node
                     val cartItems: CartItems? = foodSnapshot.getValue(CartItems::class.java)
-                    //add cart items to the list
+                    // add cart items to the list
                     cartItems?.foodName?.let { foodNames.add(it) }
                     cartItems?.foodPrice?.let { foodPrices.add(it) }
                     cartItems?.foodDescription?.let { foodDescriptions.add(it) }
                     cartItems?.foodImage?.let { foodImagesUri.add(it) }
                     cartItems?.foodQuantity?.let { quantity.add(it) }
                     cartItems?.foodIngredient?.let { foodIngredients.add(it) }
-
-
                 }
 
                 setAdapter()
@@ -183,37 +164,9 @@ class CartFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "data not fetch", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "data not fetched", Toast.LENGTH_SHORT).show()
             }
 
         })
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
