@@ -66,7 +66,6 @@ class PayOutActivity : AppCompatActivity() {
     }
 
     private fun placeOrder() {
-        try {
             userId = auth.currentUser?.uid ?: ""
             val time: Long = System.currentTimeMillis()
             val itemPushKey: String? = databaseReference.child("OrderDetails").push().key
@@ -85,27 +84,14 @@ class PayOutActivity : AppCompatActivity() {
                     bottomSheetDialog.show(supportFragmentManager, "Test")
                     removeItemFromCart()
                     finish()
-                }.addOnFailureListener { e ->
-                    Log.e("PayOutActivity", "Failed to place order: ${e.message}", e)
-                    Toast.makeText(this, "Failed to place order. Please try again.", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Log.e("PayOutActivity", "Failed to generate order key.")
-                Toast.makeText(this, "Failed to generate order key. Please try again.", Toast.LENGTH_SHORT).show()
             }
-        } catch (e: Exception) {
-            Log.e("PayOutActivity", "Exception in placeOrder(): ${e.message}", e)
-            Toast.makeText(this, "An unexpected error occurred. Please try again.", Toast.LENGTH_SHORT).show()
         }
-    }
 
     private fun removeItemFromCart() {
         val cartItemsReference: DatabaseReference =
             databaseReference.child("user").child(userId).child("CartItems")
-        cartItemsReference.removeValue().addOnFailureListener { e ->
-            Log.e("PayOutActivity", "Failed to remove items from the cart: ${e.message}", e)
-            Toast.makeText(this, "Failed to remove items from the cart. Please try again.", Toast.LENGTH_SHORT).show()
-        }
+        cartItemsReference.removeValue()
     }
 
     private fun calculateTotalAmount(): Int {
