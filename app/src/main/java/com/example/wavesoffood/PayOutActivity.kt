@@ -83,10 +83,18 @@ class PayOutActivity : AppCompatActivity() {
                     val bottomSheetDialog = CongratsBottomSheet()
                     bottomSheetDialog.show(supportFragmentManager, "Test")
                     removeItemFromCart()
-                    finish()
+                     addOrderToHistory(orderDetails)
                 }
             }
         }
+
+    private fun addOrderToHistory(orderDetails: OrderDetails) {
+
+        databaseReference.child("user").child(userId).child("BuyHistory")
+            .child(orderDetails.itemPushKey!!).setValue(orderDetails).addOnSuccessListener {
+
+            }
+    }
 
     private fun removeItemFromCart() {
         val cartItemsReference: DatabaseReference =
