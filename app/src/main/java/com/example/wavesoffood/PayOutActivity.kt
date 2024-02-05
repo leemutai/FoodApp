@@ -73,7 +73,7 @@ class PayOutActivity : AppCompatActivity() {
             if (itemPushKey != null) {
                 val orderDetails = OrderDetails(
                     userId, name, foodItemName, foodItemPrice, foodItemImage,
-                    foodItemQuantities, address, phone, time, itemPushKey, false, false
+                    foodItemQuantities, address,totalAmount, phone, time, itemPushKey, false, false
                 )
 
                 val orderReference: DatabaseReference =
