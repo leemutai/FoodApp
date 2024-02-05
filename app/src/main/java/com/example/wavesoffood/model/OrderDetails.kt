@@ -40,12 +40,29 @@ class OrderDetails():Parcelable {
         foodItemImage: ArrayList<String>,
         foodItemQuantities: ArrayList<Int>,
         address: String,
+        totalAmount:String,
         phone: String,
         time: Long,
         itemPushKey: String?,
         b: Boolean,
         b1: Boolean,
-    ) : this()
+    ) : this(){
+        this.userId = userId
+        this.userName = name
+        this.foodNames = foodItemName
+        this.foodImages = foodItemImage
+        this.foodQuantities = foodItemQuantities
+        this.address = address
+        this.totalPrice = totalAmount
+        this.phoneNumber = phone
+        this.currentTime = time
+        this.itemPushKey = itemPushKey
+        this.orderAccepted = orderAccepted
+        this.paymentReceived = paymentReceived
+
+
+
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userId)

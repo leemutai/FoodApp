@@ -85,6 +85,9 @@ class PayOutActivity : AppCompatActivity() {
                     removeItemFromCart()
                      addOrderToHistory(orderDetails)
                 }
+                    .addOnFailureListener {
+                        Toast.makeText(this,"Failed to Order", Toast.LENGTH_SHORT).show()
+                    }
             }
         }
 
