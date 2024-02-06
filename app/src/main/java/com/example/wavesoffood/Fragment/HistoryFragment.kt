@@ -1,5 +1,6 @@
 package com.example.wavesoffood.Fragment
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -45,7 +46,17 @@ class HistoryFragment : Fragment() {
         //reterive and dispay the user order history
         retrieveBuyHistory()
         //setupRecyclerView()
+
+        binding.recentBuyItem.setOnClickListener {
+            setItemsRecentBuy()
+        }
         return binding.root
+    }
+
+    private fun setItemsRecentBuy() {
+        listOfOrderItem.firstOrNull()?.let { recentBuy ->
+            val intent = Intent(requireContext(),)
+        }
     }
 
     private fun retrieveBuyHistory() {
