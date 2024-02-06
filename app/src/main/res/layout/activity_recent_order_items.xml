@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".recentOrderItems">
 
     <TextView
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:fontFamily="@font/yeon_sung"
+        android:text="Recent Buy Items"
+        android:textColor="@color/black"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backButton"
@@ -22,17 +26,19 @@
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
         android:background="@android:color/transparent"
-        android:src="@drawable/arrow_left"
         android:scaleType="centerCrop"
+        android:src="@drawable/arrow_left"
+        android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="681dp"
-        tools:listitem="@layout/buy_again_item"
-        app:layout_constraintTop_toBottomOf="@+id/backButton"
-        tools:layout_editor_absoluteX="1dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26"
+        tools:listitem="@layout/recent_buy_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
