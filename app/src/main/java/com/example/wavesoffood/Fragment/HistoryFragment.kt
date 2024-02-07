@@ -53,13 +53,13 @@ class HistoryFragment : Fragment() {
 
         //recent buy button click
         binding.recentBuyItem.setOnClickListener {
-            setItemsRecentBuy()
+            seeItemsRecentBuy()
         }
         return binding.root
     }
 
     //function to see recent buy items
-    private fun setItemsRecentBuy() {
+    private fun seeItemsRecentBuy() {
         listOfOrderItem.firstOrNull()?.let { recentBuy ->
             val intent = Intent(requireContext(),recentOrderItems::class.java)
             intent.putExtra("RecentBuyOrderItem",recentBuy)
