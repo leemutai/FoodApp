@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wavesoffood.DetailsActivity
 import com.example.wavesoffood.databinding.MenuItemBinding
+import com.example.wavesoffood.model.MenuItem
 
 class MenuAdapter(
-    private val menuItems: List<com.example.wavesoffood.model.MenuItem>,
+    private val menuItems: List<MenuItem>,
     private val requireContext: Context,
 ) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 

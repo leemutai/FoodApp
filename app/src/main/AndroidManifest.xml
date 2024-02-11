@@ -20,7 +20,7 @@
             android:name=".DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".PayOutActivity"
+            android:name="PayOutActivity"
             android:exported="false"
             tools:ignore="MissingClass" />
         <activity
